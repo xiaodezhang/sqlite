@@ -313,6 +313,10 @@ static int dbpageUpdate(
   Pager *pPager;
   int szPage;
 
+  if( pTab->db->flags & SQLITE_Defensive ){
+    zErr = "read-only";
+    goto update_fail;
+  }
   if( argc==1 ){
     zErr = "cannot delete";
     goto update_fail;
@@ -403,6 +407,7 @@ int sqlite3DbpageRegister(sqlite3 *db){
     0,                            /* xSavepoint */
     0,                            /* xRelease */
     0,                            /* xRollbackTo */
+    0                             /* xShadowName */
   };
   return sqlite3_create_module(db, "sqlite_dbpage", &dbpage_module, 0);
 }
