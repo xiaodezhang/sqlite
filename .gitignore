@@ -1,0 +1,7 @@
+*out
+*.swo
+*.swp
+GPATH
+GRTAGS
+GTAGS
+*.*~
